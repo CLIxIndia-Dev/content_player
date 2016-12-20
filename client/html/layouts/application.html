@@ -7,6 +7,16 @@
     <meta name="description" content="Connected Learning Initiative">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript">
+      function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+      }
       window.DEFAULT_SETTINGS = {
         epubUrl:"",
         locale: "en",
@@ -14,15 +24,14 @@
         apiUrl: "",
         loggingApiUrl: "https://localhost:8888/api",
         loggingApiPath: "appdata",
-        sessionId: "external_identifier"
+        sessionId: getCookie('session_id')
       };
       window.DEFAULT_JWT = {};
     </script>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <%- include('./partials/_header.html') %>
     <%- content %>
-    <%- include('./partials/_google_analytics.html') %>
   </body>
 </html>
