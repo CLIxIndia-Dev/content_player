@@ -11,8 +11,6 @@ const SessionExpiration = store => next => action => {
     const state = store.getState();
     // call up to the parent window (unplatform)
     // and trigger it's startSessionCounter()
-    console.log('calling parent window', state.settings.loggingApiUrl);
-
     window.parent.postMessage('startSessionCounter',
       state.settings.loggingApiUrl);
   }
