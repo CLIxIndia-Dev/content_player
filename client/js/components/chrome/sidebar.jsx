@@ -33,32 +33,46 @@ export class Sidebar extends React.Component{
   }
 
   render(){
-    var sidebarClass = this.props.sidebarOpen ? "c-sidebar c-sidebar--open" : "c-sidebar";
+    let sidebarClass = this.props.sidebarOpen
+    ? 'c-sidebar c-sidebar--open'
+    : 'c-sidebar';
+
+    let buttonToggleClass = this.props.sidebarOpen
+    ? 'c-sidebar__toggle-button c-sidebar__toggle-button--open'
+    : 'c-sidebar__toggle-button';
+
+    let svgSpinClass = this.props.sidebarOpen
+    ? 'c-sidebar__svg c-sidebar__svg--spin'
+    : 'c-sidebar__svg';
 
     if(this.props.sidebarOpen){
       var tableOfContents = this.tableOfContents(this.props);
     }
 
     return (
-      <div
-        className={sidebarClass}>
-        <div
-          onClick={() => {this.props.toggleSidebar();}}
-          className="openButton">
-          {this.props.localizedStrings.sidebar.activityList}
-          <svg viewBox="0 0 8 12" version="1.1">
-            <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <g id="Core" transform="translate(-260.000000, -90.000000)" fill="#FFFFFF">
-                    <g id="chevron-right" transform="translate(259.500000, 90.000000)">
-                        <polygon id="Shape" points="2 0 0.6 1.4 5.2 6 0.6 10.6 2 12 8 6"></polygon>
-                    </g>
+      <div>
+        <button
+            onClick={() => {this.props.toggleSidebar();}}
+            className={buttonToggleClass}>
+            {this.props.localizedStrings.sidebar.activityList}
+            <svg className={svgSpinClass} version='1.1' xmlns='http://www.w3.org/2000/svg'
+              width='9.9' height='16' viewBox='0 0 9.9 16'
+              enableBackground='new 0 0 9.9 16' xmlSpace='preserve'>
+              <g transform='translate(-218.000000, -90.000000)'>
+                <g id='chevron-right' transform='translate(218.500000, 90.000000)'>
+                  <polygon id='Shape' fill='#FFFFFF' points='0,10.6 1.4,12 7.4,6 1.4,0 0,1.4 4.6,6' />
                 </g>
-            </g>
-        </svg>
-        </div>
-        <div className="unit">{this.props.tocMeta.gradeUnit}</div>
-        <div className="subject">{this.props.tocMeta.subjectLesson}</div>
-        {tableOfContents}
+              </g>
+            </svg>
+
+        </button>
+        <nav className={sidebarClass} aria-labelledby='Lesson'>
+          <div className="unit">{this.props.tocMeta.gradeUnit}</div>
+          <div id='Lesson' className="subject">{this.props.tocMeta.subjectLesson}</div>
+          <ul>
+          {tableOfContents}
+          </ul>
+        </nav>
       </div>
     );
   }

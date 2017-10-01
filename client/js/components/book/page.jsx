@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
-import _                          from "lodash";
-import React                      from "react";
-import { connect }                from "react-redux";
-import { Helmet }                   from "react-helmet";
+import _                     from 'lodash';
+import React                 from 'react';
+import { connect }           from 'react-redux';
+import { Helmet }            from 'react-helmet';
 
-import * as ContentActions        from "../../actions/content";
-import * as AnalyticsActions from "../../actions/analytics";
-import assets                     from "../../libs/assets";
-import getAVSrc                   from "../../utils/audio_video_src";
+import * as ContentActions   from '../../actions/content';
+import * as AnalyticsActions from '../../actions/analytics';
+import assets                from '../../libs/assets';
+import getAVSrc              from '../../utils/audio_video_src';
 
 const select = (state) => {
   let lang = state.content.tocMeta.language;
@@ -49,20 +49,20 @@ export class Page extends React.Component {
     const type = data.open_assessments_msg;
 
     switch(type) {
-      case "open_assessments_available_locales":
+      case 'open_assessments_available_locales':
         message.source.postMessage({
-          open_assessments_msg: "open_assessments_set_locale",
+          open_assessments_msg: 'open_assessments_set_locale',
           locale: this.props.locale
-        }, "*");
+        }, '*');
         break;
-      case "scrollToTop":
+      case 'scrollToTop':
         this.scrollToAssessment();
         break;
     }
   }
 
   componentDidMount() {
-    window.addEventListener("message", (e) => this.onMessage(e), false);
+    window.addEventListener('message', (e) => this.onMessage(e), false);
   }
 
   addVideoEventListeners(iframeDocument) {
@@ -166,7 +166,7 @@ export class Page extends React.Component {
     let transcriptButtons = iframeDocument.querySelectorAll('.trans-form input');
     _.each(transcriptButtons, (element) => {
       let label = element.parentElement.querySelector('label');
-      let labelName = label ? label.textContent : "";
+      let labelName = label ? label.textContent : '';
 
       element.addEventListener('change', (e) => {
         if(e.target.checked) {
@@ -200,28 +200,28 @@ export class Page extends React.Component {
     );
     if(!current) { return; }
 
-    const iframeTitle = this.props.tocMeta.gradeUnit + ' ' + this.props.tocMeta.subjectLesson
+    const iframeTitle = this.props.tocMeta.gradeUnit + ' ' + this.props.tocMeta.subjectLesson;
     return <iframe
       onLoad={() => this.addIframeEventListeners()}
       ref={(iframe) => this.contentIframe = iframe }
       src={`${props.contentPath}/${current.content}`}
       title={iframeTitle}
-      allowFullScreen="true" />;
+      allowFullScreen='true' />;
   }
 
   render() {
     var lastModified = this.props.tocMeta.lastModified;
     var footerText = lastModified ? `CLIx release date: ${lastModified}` : undefined;
     return (
-      <div className="c-page">
+      <section className='c-page'>
         <Helmet>
           <html lang={this.props.locale} />
         </Helmet>
         {this.iframe(this.props)}
-        <div className="c-release">
+        <div className='c-release'>
           {footerText}
         </div>
-      </div>
+      </section>
     );
   }
 }

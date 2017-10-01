@@ -1,97 +1,137 @@
-.c-sidebar{
-    position: relative;
-    width: 140px;
-    // min-width: 140px;
-    height: 100vh;
-    transition: all 0.6s ease;
-    align-items: stretch;
-    background-color: #4a4a4a;
-    overflow-x: hidden;
+.c-sidebar__toggle-button {
+  width: 18.250rem;
+  position: absolute;
+  left: -9.5rem;
+  z-index: 2;
+  padding-top: 0.75rem;
+  padding-right: 1rem;
+  padding-bottom: 0.563rem;
+  padding-left: 10.063rem;
+  color: #fff;
+  font-size: 0.75rem;
+  text-align: left;
+  text-shadow: 0 0.125rem 0.125rem rgba(0,0,0, 0.3);
+  text-transform: uppercase;
+  background-color: #333;
+  border-top: none;
+  border-right: none;
+  border-bottom: 3px solid #333;
+  border-left: none;
+  outline: 0;
+  cursor: pointer;
+  // transition: all 0.6s ease;
+  transition-property: left padding-left;
+  transition-delay: 0.1s;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+
+.c-sidebar__toggle-button:hover {
+  background-color: #111;
+  border-bottom: 3px solid #666;
+}
+
+.c-sidebar__toggle-button:focus {
+  background-color: #111;
+  background-image: linear-gradient(90deg, #f54b32, #f37f2f 13.75em, #f65e27);
+  border-bottom: 3px solid #fff;
+}
+
+.c-sidebar__toggle-button:active {
+  background-color: #111;
+  background-image: linear-gradient(90deg, #f54b32, #f37f2f 13.75em, #f65e27);
+  border-bottom: 3px solid #fff;
+}
+
+.c-sidebar__toggle-button--open {
+  left: 0;
+  padding-left: 0.563rem;
+}
+
+.c-sidebar__svg {
+  height: 0.75rem;
+  width: 0.5rem;
+  position: absolute;
+  right:0.5rem;
+  top: 0.9rem;
+  transform:rotate(0deg);
+  transition: all 0.6s ease;
+}
+
+.c-sidebar__svg--spin {
+  transform:rotate(90deg);
+}
+
+.c-sidebar__button-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.c-sidebar {
+  position: relative;
+  // width: 140px;
+  width: 0;
+  // min-width: 140px;
+  height: 100vh;
+  padding-top: 2em;
+  transition: all 0.6s ease;
+  align-items: stretch;
+  background-color: #4a4a4a;
+  overflow-x: hidden;
+  color: #fff;
+  font-weight: 300;
+
+  a {
+    opacity:0;
+    // transition: opacity .2s ease;
+  }
+
+  .unit {
+   padding: 1.875rem 0 0 1rem;
+   text-transform: uppercase;
+   opacity: 0;
+  //  transition: opacity .2s ease;
+   font-size: 0.625rem;
+  }
+
+  .subject {
+   font-size: 0.875rem;
+   padding: 0 0 0.313rem 1rem;
+   text-transform: uppercase;
+   opacity: 0;
+  //  transition: opacity .2s ease;
+  }
+
+  .clix-v {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
     color: #fff;
     font-weight: 300;
-
-    a{
-      opacity:0;
-      // transition: opacity .2s ease;
-    }
-
-    svg{
-      height: 12px;
-      width: 8px;
-      position: absolute;
-      right:0.5rem;
-      top: 0.9rem;
-      transform:rotate(0deg);
-      transition: all 0.6s ease;
-    }
-
-   .openButton{
-     padding: 12px 16px 9px;
-     background-color: #333;
-     font-size: 0.75rem;
-     border-bottom: 3px solid #333;
-     text-transform: uppercase;
-     cursor: pointer;
-   }
-
-   .openButton:hover{
-      background-color: #111;
-      border-bottom: 3px solid #666;
-   }
-
-   .openButton:active{
-     background-color: #111;
-     background-image: linear-gradient(90deg, #f54b32, #f37f2f 13.75em, #f65e27);
-     border-bottom: 3px solid #fff;
-   }
-
-   .unit{
-     padding: 28px 0 0px 16px;
-     text-transform: uppercase;
-     opacity: 0;
-    //  transition: opacity .2s ease;
-     font-size: 0.625rem;
-   }
-
-   .subject{
-     font-size: 0.875rem;
-     padding: 0 0 5px 16px;
-     text-transform: uppercase;
-     opacity: 0;
-    //  transition: opacity .2s ease;
-   }
-
-   .clix-v{
-      position: absolute;
-      left: 1rem;
-      bottom: 1rem;
-      color: #fff;
-      font-weight: 300;
-      font-size: 10px;
-      letter-spacing: 1.15px;
-      text-transform: uppercase;
-   }
+    font-size: 0.62543m;
+    letter-spacing: 1.15px;
+    text-transform: uppercase;
+  }
 }
 
-.c-sidebar--open{
-  width: 292px;
+.c-sidebar--open {
+  width: 18.250rem;
 
-  a{
+  a {
     color: #fff;
     opacity: 1;
     transition: opacity 0.6s ease;
   }
-  svg{
-    transform:rotate(180deg);
-  }
 
-  .unit{
+  .unit {
     opacity: 1;
     transition: opacity 0.6s ease;
   }
 
-  .subject{
+  .subject {
     opacity: 1;
     transition: opacity 0.6s ease;
   }
 }
+

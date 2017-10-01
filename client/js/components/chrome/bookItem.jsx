@@ -1,21 +1,26 @@
 'use strict';
 
-import React          from 'react';
+import React from 'react';
 
-export default (props)=>{
+export default (props) => {
 
-  const openPage = ()=>{
+  const openPage = (e) => {
+    e.preventDefault();
     props.selectPage(`/${props.content.id}`, props.content.navLabel);
   };
 
   var bookItemClass = 'c-book-item';
-  if(props.sidebarOpen && props.selected){
+  if (props.sidebarOpen && props.selected) {
     bookItemClass = 'c-book-item c-book-item--selected';
   }
 
-  return <div className={bookItemClass} onClick={()=>openPage()}>
-    <a>
+  return <li className={bookItemClass} >
+    <a href='#' onClick={(e) => openPage(e)}>
       {props.content.navLabel}
     </a>
-  </div>;
+  </li>;
+
+  // return <button className={bookItemClass} onClick={() => openPage()}>
+  //   {props.content.navLabel}
+  // </button>;
 };

@@ -1,15 +1,34 @@
 
 .c-book-item{
+  position: relative;
+  margin-top: 3px;
+  overflow:hidden;
   color: white;
   font-size: .8em;
-  cursor: pointer;
-  margin-top: 3px;
-  padding: 7px 16px 8px;
-  background-color: rgba(255,255,255, 0.1);
   font-weight: 300;
   text-decoration: none;
-  overflow:hidden;
-  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+
+  li {
+    display: flex;
+    align-items: stretch;
+    list-style-type: none; /* remove bullets */
+  }
+
+  li::before {
+    content: "\200B"; /* add zero-width space, fixes AT bug */
+  }
+
+  a {
+    width: 100%;
+    display: flex;
+    padding: 0.438rem 1rem 0.5rem;
+    color: #fff;
+    font-weight: 300;
+    font-size: .75em;
+    text-decoration: none;
+  }
 
   a::before{
     position: absolute;
@@ -20,7 +39,7 @@
     background: #fff;
     content: '';
     opacity: 0;
-    transform: translate3d(7px,0,0);
+    transform: translate3d(7px, -5px, 0);
     transition: opacity 0.35s, transform 0.35s;
   }
   &:hover{
@@ -29,8 +48,21 @@
     /* CLIx magenta */
     background-image: linear-gradient(90deg, #b30062, #e5007e 13.75em, #cd1171);
     a::before{
+      width: 6px;
       opacity: 1;
-      transform: translate3d(-5px,0,0);
+      transform: translate3d(-5px, 0, 0);
+    }
+  }
+
+  &:focus{
+    /* CLIx magenta white bar */
+    background-image: linear-gradient(90deg, #b30062, #e5007e 13.75em, #d72a83 117.250em, #fff 17.251em, #fff 17.6490em, #d72a83 17.6491em, #cd1171);
+    /* CLIx magenta */
+    background-image: linear-gradient(90deg, #b30062, #e5007e 13.75em, #cd1171);
+    a::before{
+      width: 6px;
+      opacity: 1;
+      transform: translate3d(-15px, 0, 0);
     }
   }
 
@@ -46,3 +78,22 @@
   /* CLIx purple white bar */
   background-image: linear-gradient(90deg, #91006a, #a31d7e 0px, #9c1577 275px, #fff 275px, #fff 281px, #9b1675 281px, #9a1675);
 }
+
+// li.effect-bar a::before {
+//   position: absolute;
+//   left: 281px;
+//   height: 100%;
+//   width: 0;
+//   background: #fff;
+//   content: '';
+//   opacity: 0;
+//   transform: translate3d(7px,-5px,0);
+//   transition: opacity 0.35s, transform 0.35s;
+// }
+
+
+// li.effect-bar:hover a::before {
+//   width: 6px;
+//   opacity: 1;
+//   transform: translate3d(-5px,-5px,0);
+// }
