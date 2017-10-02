@@ -14,13 +14,13 @@ export default (props) => {
     bookItemClass = 'c-book-item c-book-item--selected';
   }
 
-  return <li className={bookItemClass} >
-    <a href='#' onClick={(e) => openPage(e)}>
-      {props.content.navLabel}
-    </a>
-  </li>;
+  // return <li className={bookItemClass} >
+  //   <a href='#' onClick={(e) => openPage(e)}>
+  //     {props.content.navLabel}
+  //   </a>
+  // </li>;
 
-  // return <button className={bookItemClass} onClick={() => openPage()}>
-  //   {props.content.navLabel}
-  // </button>;
+  return <button className={bookItemClass} onClick={() => openPage()}><span>
+    {props.content.navLabel}</span>
+  </button>;
 };

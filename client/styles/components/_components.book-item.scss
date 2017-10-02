@@ -1,99 +1,70 @@
 
-.c-book-item{
+.c-book-item {
   position: relative;
   margin-top: 3px;
+  padding: 0.438em 1em 0.5em;
   overflow:hidden;
   color: white;
-  font-size: .8em;
+  font-size: .875em;
   font-weight: 300;
+  text-align: left;
   text-decoration: none;
   background-color: rgba(255, 255, 255, 0.1);
+  border-style: none;
+  border-left: 0.375em solid hsla(0, 100%, 100%, 0);
+  outline: 0;
   cursor: pointer;
 
-  li {
-    display: flex;
-    align-items: stretch;
-    list-style-type: none; /* remove bullets */
-  }
-
-  li::before {
-    content: "\200B"; /* add zero-width space, fixes AT bug */
-  }
-
-  a {
-    width: 100%;
-    display: flex;
-    padding: 0.438rem 1rem 0.5rem;
-    color: #fff;
-    font-weight: 300;
-    font-size: .75em;
-    text-decoration: none;
-  }
-
-  a::before{
-    position: absolute;
-    top: 0px;
-    right: 0.2rem;
+  span::before {
+    width:0.45em;
     height: 100%;
-    width:6px;
+    position: absolute;
+    top: 0;
+    right: 0.2em;
     background: #fff;
     content: '';
     opacity: 0;
-    transform: translate3d(7px, -5px, 0);
+    transform: translate3d(0.5em, 0, 0);
     transition: opacity 0.35s, transform 0.35s;
   }
-  &:hover{
-    /* CLIx magenta white bar */
-    background-image: linear-gradient(90deg, #b30062, #e5007e 13.75em, #d72a83 117.250em, #fff 17.251em, #fff 17.6490em, #d72a83 17.6491em, #cd1171);
+  &:hover {
     /* CLIx magenta */
     background-image: linear-gradient(90deg, #b30062, #e5007e 13.75em, #cd1171);
-    a::before{
-      width: 6px;
+    border-left-color: #fff;
+  }
+
+  &:focus {
+    /* CLIx magenta */
+    background-image: linear-gradient(90deg, #b30062, #e5007e 13.75em, #cd1171);
+    border-left-color: #ff1b99;
+
+    span::before {
       opacity: 1;
-      transform: translate3d(-5px, 0, 0);
+      transform: translate3d(-0.5em, 0, 0);
     }
   }
 
-  &:focus{
-    /* CLIx magenta white bar */
-    background-image: linear-gradient(90deg, #b30062, #e5007e 13.75em, #d72a83 117.250em, #fff 17.251em, #fff 17.6490em, #d72a83 17.6491em, #cd1171);
-    /* CLIx magenta */
-    background-image: linear-gradient(90deg, #b30062, #e5007e 13.75em, #cd1171);
-    a::before{
-      width: 6px;
-      opacity: 1;
-      transform: translate3d(-15px, 0, 0);
-    }
-  }
-
-  &:active{
-    /* CLIx orange white bar */
-    background-image: linear-gradient(90deg, #f54b32, #f37f2f 0px, #f6753f 275px, #fff 275px, #fff 281px, #f56025 281px, #f65e27);
+  &:active {
     /* CLIx orange */
     background-image: linear-gradient(90deg, #f54b32, #f37f2f 0px, #f65e27);
   }
 }
 
-.c-book-item--selected{
-  /* CLIx purple white bar */
-  background-image: linear-gradient(90deg, #91006a, #a31d7e 0px, #9c1577 275px, #fff 275px, #fff 281px, #9b1675 281px, #9a1675);
+.c-book-item--selected {
+  /* CLIx purple bar */
+  background-image: linear-gradient(90deg, #91006a, #a31d7e 0px, #9a1675);
+  border-left-color: #ff67d5;
+
+  span::before {
+    width:0.45em;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0.2em;
+    background: #fff;
+    content: '';
+    opacity: 0;
+    // transform: translate3d(0.5em, 0, 0);
+    // transition: opacity 0.35s, transform 0.35s;
+  }
 }
-
-// li.effect-bar a::before {
-//   position: absolute;
-//   left: 281px;
-//   height: 100%;
-//   width: 0;
-//   background: #fff;
-//   content: '';
-//   opacity: 0;
-//   transform: translate3d(7px,-5px,0);
-//   transition: opacity 0.35s, transform 0.35s;
-// }
-
-
-// li.effect-bar:hover a::before {
-//   width: 6px;
-//   opacity: 1;
-//   transform: translate3d(-5px,-5px,0);
-// }

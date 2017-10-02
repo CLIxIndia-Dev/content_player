@@ -50,13 +50,12 @@ export class Sidebar extends React.Component{
     }
 
     return (
-      <div>
+      <aside tabIndex='-1' role='complementary' aria-label=''>
         <button
             onClick={() => {this.props.toggleSidebar();}}
             className={buttonToggleClass}>
             {this.props.localizedStrings.sidebar.activityList}
-            <svg className={svgSpinClass} version='1.1' xmlns='http://www.w3.org/2000/svg'
-              width='9.9' height='16' viewBox='0 0 9.9 16'
+            <svg className={svgSpinClass} version='1.1' width='9.9' height='16' viewBox='0 0 9.9 16'
               enableBackground='new 0 0 9.9 16' xmlSpace='preserve'>
               <g transform='translate(-218.000000, -90.000000)'>
                 <g id='chevron-right' transform='translate(218.500000, 90.000000)'>
@@ -66,14 +65,14 @@ export class Sidebar extends React.Component{
             </svg>
 
         </button>
-        <nav className={sidebarClass} aria-labelledby='Lesson'>
-          <div className="unit">{this.props.tocMeta.gradeUnit}</div>
-          <div id='Lesson' className="subject">{this.props.tocMeta.subjectLesson}</div>
-          <ul>
+        <div className={sidebarClass}>
+          <div className='unit'>{this.props.tocMeta.gradeUnit}</div>
+          <div className='subject'>{this.props.tocMeta.subjectLesson}</div>
+          <nav className='c-sidebar__button-list' aria-label='Activity'>
           {tableOfContents}
-          </ul>
-        </nav>
-      </div>
+          </nav>
+        </div>
+      </aside>
     );
   }
 }
