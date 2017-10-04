@@ -9,18 +9,16 @@ export default (props) => {
     props.selectPage(`/${props.content.id}`, props.content.navLabel);
   };
 
-  var bookItemClass = 'c-book-item';
+  let bookItemClass = 'c-book-item';
+  let ariaCurr;
   if (props.sidebarOpen && props.selected) {
     bookItemClass = 'c-book-item c-book-item--selected';
+    ariaCurr = 'page';
   }
 
   return <li className={bookItemClass} >
-    <a href='#' onClick={(e) => openPage(e)}>
+    <a href='#' aria-current={ariaCurr} onClick={(e) => openPage(e)}>
       {props.content.navLabel}
     </a>
   </li>;
-
-  // return <button className={bookItemClass} onClick={() => openPage()}><span>
-  //   {props.content.navLabel}</span>
-  // </button>;
 };

@@ -3,7 +3,7 @@
 \*-------------------------------------*/
 
 // Please use rems as units of measurement instead of pixels.
-// The conversion rate is 1rem = 10px
+// The conversion rate is 1em = 16px
 
 // Shades of gray
 $dark-gray: #333333;
@@ -46,17 +46,22 @@ $radius: 0.3rem;
 
 @mixin activity-button-toggle-hover {
   background-color: #111;
+  background-image: linear-gradient(90deg, darken($clix-blueberry, 10%), $clix-blueberry 13.75em, darken($clix-blueberry, 10%));
 }
 
 @mixin activity-button-toggle-focus {
   background-color: #111;
-  // background-image: linear-gradient(90deg, #f54b32, #f37f2f 13.75em, #f65e27);
   background-image: linear-gradient(90deg, darken($clix-blue, 10%), $clix-blue 13.75em, darken($clix-blue, 10%));
 }
 
 @mixin activity-button-toggle-active {
   background-color: #111;
   background-image: linear-gradient(90deg, #f54b32, #f37f2f 13.75em, #f65e27);
+}
+
+@mixin activity-button-toggle-pressed {
+  background-color: #111;
+  background-image: linear-gradient(90deg, darken($clix-blueberry, 10%), $clix-blueberry 13.75em, darken($clix-blueberry, 10%));
 }
 
 // activity nav link styling

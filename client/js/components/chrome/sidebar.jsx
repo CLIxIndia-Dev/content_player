@@ -27,7 +27,8 @@ export class Sidebar extends React.Component{
           content={item}
           selected={this.props.pageId == item.id}
           sidebarOpen={this.props.sidebarOpen}
-          selectPage={this.props.selectPage}/>
+          selectPage={this.props.selectPage}
+        />
       );
     });
   }
@@ -36,7 +37,7 @@ export class Sidebar extends React.Component{
     const tableOfContents = this.tableOfContents(this.props);
     let btnToggleClass = 'c-sidebar__toggle-button';
     let svgSpinClass = 'c-sidebar__svg';
-    let sidebarClass = 'c-sidebar visuallyhidden';
+    let sidebarClass = 'c-sidebar ';
     let btnAriaPressed = 'false';
     let btnHasPopup = 'true';
     let btnAriaExpanded = 'false';
@@ -53,20 +54,24 @@ export class Sidebar extends React.Component{
     return (
       <section tabIndex='-1' role='complementary'>
         <button
-            onClick={() => {this.props.toggleSidebar();}}
-            className={btnToggleClass}>
-            <span>{this.props.localizedStrings.sidebar.activityList}</span>
-            <svg className={svgSpinClass} version='1.1' width='9.9' height='16' viewBox='0 0 9.9 16'
-              enableBackground='new 0 0 9.9 16' xmlSpace='preserve'>
-              <g transform='translate(-218.000000, -90.000000)'>
-                <g id='chevron-right' transform='translate(218.500000, 90.000000)'>
-                  <polygon id='Shape' fill='#FFFFFF' points='0,10.6 1.4,12 7.4,6 1.4,0 0,1.4 4.6,6' />
-                </g>
+          onClick={() => {this.props.toggleSidebar();}}
+          className={btnToggleClass}
+          aria-pressed={btnAriaPressed}
+          aria-expanded={btnAriaExpanded}
+          aria-controls='activityList'
+        >
+          <span>{this.props.localizedStrings.sidebar.activityList}</span>
+          <svg className={svgSpinClass} version='1.1' width='9.9' height='16' viewBox='0 0 9.9 16'
+            enableBackground='new 0 0 9.9 16' xmlSpace='preserve'>
+            <g transform='translate(-218.000000, -90.000000)'>
+              <g id='chevron-right' transform='translate(218.500000, 90.000000)'>
+                <polygon id='Shape' fill='#FFFFFF' points='0,10.6 1.4,12 7.4,6 1.4,0 0,1.4 4.6,6' />
               </g>
-            </svg>
+            </g>
+          </svg>
 
         </button>
-        <div className={sidebarClass}>
+        <div id='activityList' className={sidebarClass}>
           <div className='unit'>{this.props.tocMeta.gradeUnit}</div>
           <div className='subject'>{this.props.tocMeta.subjectLesson}</div>
           <nav aria-label='Activity'>
@@ -79,5 +84,4 @@ export class Sidebar extends React.Component{
     );
   }
 }
-
 export default connect(select, ApplicationActions)(Sidebar);

@@ -2,6 +2,14 @@
 .c-page {
   height: 100%;
   width: 100%;
+  margin: 0.5em;
+  border-left-width: 6px;
+  border-left-style: solid;
+  border-left-color: hsla(316, 77%, 37%, 0);
+
+  &:focus { // test focusing on section
+    border-left-color: hsla(316, 77%, 37%, 1);
+  }
 
   iframe {
     display: block;
@@ -11,10 +19,18 @@
     height: calc(100% - 1.5rem);
     width: 100%;
     border: none;
-  }
 
-  iframe:focus { // test focusing on iframe
-    outline-color: dodgerblue;
+    &::before {
+      position: relative;
+      top: 0;
+      left: 1em;
+
+      &:focus { // test focusing on section
+        border-left-width: 4px;
+        border-left-style: solid;
+        border-left-color: dodgerblue;
+      }
+    }
   }
 
   .c-release {
@@ -22,8 +38,9 @@
     padding: 0.313rem;
     height: 1.5rem;
     width: 100%;
+    @include regular;
     font-size: 0.6rem;
-    color: #777;
+    color: $gray;
     text-align: center;
     text-transform: uppercase;
     border-top: 1px solid #ccc;

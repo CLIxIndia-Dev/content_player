@@ -65,6 +65,13 @@ export class Page extends React.Component {
     window.addEventListener('message', (e) => this.onMessage(e), false);
   }
 
+  componentDidUpdate() {
+    // Check if the iframe has reloaded, and focus to top of wrapping section
+    setTimeout(() => {
+      this.section.focus();
+    }, 250);
+  }
+
   addVideoEventListeners(iframeDocument) {
     let videoElements = iframeDocument.querySelectorAll('video');
     _.each(videoElements, (element) => {
@@ -213,7 +220,7 @@ export class Page extends React.Component {
     var lastModified = this.props.tocMeta.lastModified;
     var footerText = lastModified ? `CLIx release date: ${lastModified}` : undefined;
     return (
-      <section className='c-page'>
+      <section className='c-page' tabIndex='-1' ref={(section) => this.section = section}>
         <Helmet>
           <html lang={this.props.locale} />
         </Helmet>
