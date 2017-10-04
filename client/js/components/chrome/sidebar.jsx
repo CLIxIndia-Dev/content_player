@@ -33,28 +33,29 @@ export class Sidebar extends React.Component{
   }
 
   render(){
-    let sidebarClass = this.props.sidebarOpen
-    ? 'c-sidebar c-sidebar--open'
-    : 'c-sidebar';
-
-    let buttonToggleClass = this.props.sidebarOpen
-    ? 'c-sidebar__toggle-button c-sidebar__toggle-button--open'
-    : 'c-sidebar__toggle-button';
-
-    let svgSpinClass = this.props.sidebarOpen
-    ? 'c-sidebar__svg c-sidebar__svg--spin'
-    : 'c-sidebar__svg';
+    const tableOfContents = this.tableOfContents(this.props);
+    let btnToggleClass = 'c-sidebar__toggle-button';
+    let svgSpinClass = 'c-sidebar__svg';
+    let sidebarClass = 'c-sidebar visuallyhidden';
+    let btnAriaPressed = 'false';
+    let btnHasPopup = 'true';
+    let btnAriaExpanded = 'false';
 
     if(this.props.sidebarOpen){
-      var tableOfContents = this.tableOfContents(this.props);
+      btnToggleClass = 'c-sidebar__toggle-button c-sidebar__toggle-button--open';
+      svgSpinClass = 'c-sidebar__svg c-sidebar__svg--spin';
+      sidebarClass = 'c-sidebar c-sidebar--open ';
+      btnAriaPressed = 'true';
+      btnHasPopup = 'true';
+      btnAriaExpanded = 'true';
     }
 
     return (
-      <aside tabIndex='-1' role='complementary' aria-label=''>
+      <section tabIndex='-1' role='complementary'>
         <button
             onClick={() => {this.props.toggleSidebar();}}
-            className={buttonToggleClass}>
-            {this.props.localizedStrings.sidebar.activityList}
+            className={btnToggleClass}>
+            <span>{this.props.localizedStrings.sidebar.activityList}</span>
             <svg className={svgSpinClass} version='1.1' width='9.9' height='16' viewBox='0 0 9.9 16'
               enableBackground='new 0 0 9.9 16' xmlSpace='preserve'>
               <g transform='translate(-218.000000, -90.000000)'>
@@ -68,11 +69,13 @@ export class Sidebar extends React.Component{
         <div className={sidebarClass}>
           <div className='unit'>{this.props.tocMeta.gradeUnit}</div>
           <div className='subject'>{this.props.tocMeta.subjectLesson}</div>
-          <nav className='c-sidebar__button-list' aria-label='Activity'>
-          {tableOfContents}
+          <nav aria-label='Activity'>
+            <ul>
+              {tableOfContents}
+            </ul>
           </nav>
         </div>
-      </aside>
+      </section>
     );
   }
 }
