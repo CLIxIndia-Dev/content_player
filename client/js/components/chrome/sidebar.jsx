@@ -35,19 +35,24 @@ export class Sidebar extends React.Component{
   }
 
   render(){
-    const tableOfContents = this.tableOfContents(this.props);
     let btnToggleClass = 'c-sidebar__toggle-button';
     let svgSpinClass = 'c-sidebar__svg';
-    let sidebarClass = 'c-sidebar domhidden';
     let btnAriaPressed = 'false';
     let btnAriaExpanded = 'false';
+    let sidebarClass = 'c-sidebar';
+    let unit = '';
+    let subject = '';
+    let tableOfContents = '';
 
     if(this.props.sidebarOpen){
       btnToggleClass = 'c-sidebar__toggle-button c-sidebar__toggle-button--open';
       svgSpinClass = 'c-sidebar__svg c-sidebar__svg--spin';
-      sidebarClass = 'c-sidebar c-sidebar--open';
       btnAriaPressed = 'true';
       btnAriaExpanded = 'true';
+      sidebarClass = 'c-sidebar c-sidebar--open';
+      unit = this.props.tocMeta.gradeUnit;
+      subject = this.props.tocMeta.subjectLesson;
+      tableOfContents = this.tableOfContents(this.props);
     }
 
     return (
@@ -73,8 +78,8 @@ export class Sidebar extends React.Component{
 
         </button>
         <div id='activityList' className={sidebarClass}>
-          <div className='unit'>{this.props.tocMeta.gradeUnit}</div>
-          <div className='subject'>{this.props.tocMeta.subjectLesson}</div>
+          <div className='unit'>{unit}</div>
+          <div className='subject'>{subject}</div>
           <ul>
             {tableOfContents}
           </ul>
