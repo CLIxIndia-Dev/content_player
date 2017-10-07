@@ -1,6 +1,5 @@
 .c-sidebar__toggle-button {
-  width: 20.88em;
-  // width: 292px;
+  width: 20.88em; // width: 292px;
   position: absolute;
   top: 0;
   left: -10em;
@@ -22,6 +21,10 @@
   @include activity-button-toggle;
   cursor: pointer;
 
+  &[aria-pressed='true'] {
+    @include activity-button-toggle-pressed;
+  }
+
   &:hover {
     @include activity-button-toggle-hover;
   }
@@ -33,26 +36,15 @@
   &:active {
     @include activity-button-toggle-active;
   }
-
-  &[aria-pressed='true'] {
-    @include activity-button-toggle-pressed;
-  }
-
-  &[aria-pressed='false'] {
-    @include activity-button-toggle;
-  }
 }
 
 .c-sidebar__toggle-button--open {
   left: 0;
   padding-left: 1.65em;
-  // @include activity-button-toggle-pressed;
 }
 
 .c-sidebar__svg {
   position: absolute;
-  // width: 0.5em;
-  // height: 0.75em;
   top: 0.9em;
   right: 0.75em;
   transform:rotate(0deg);
@@ -72,9 +64,7 @@
 
 .c-sidebar {
   position: relative;
-  // width: 140px;
   width: 0;
-  // min-width: 140px;
   height: 100vh;
   padding-top: 2em;
   @include regular;
@@ -120,11 +110,11 @@
     color: #fff;
     opacity: 1;
     // transition-delay: 0.5s;
-    // transition: opacity 0.6s ease;
-    transition-property: opacity;
-    transition-delay: 0.5s;
-    transition-duration: 0.6s;
-    transition-timing-function: ease;
+    transition: opacity 0.6s ease;
+    // transition-property: opacity;
+    // transition-delay: 0.5s;
+    // transition-duration: 0.6s;
+    // transition-timing-function: ease;
 
   }
 

@@ -6,6 +6,7 @@ export default (props) => {
 
   const openPage = (e) => {
     e.preventDefault();
+    props.focusPage();
     props.selectPage(`/${props.content.id}`, props.content.navLabel);
   };
 
@@ -16,9 +17,15 @@ export default (props) => {
     ariaCurr = 'page';
   }
 
-  return <li className={bookItemClass} >
-    <a href='#' aria-current={ariaCurr} onClick={(e) => openPage(e)}>
-      {props.content.navLabel}
-    </a>
-  </li>;
+  return (
+    <li className={bookItemClass} >
+      <a
+        href='#'
+        aria-current={ariaCurr}
+        onClick={(e) => openPage(e)}
+      >
+        {props.content.navLabel}
+      </a>
+    </li>
+  );
 };

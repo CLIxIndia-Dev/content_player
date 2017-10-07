@@ -7,8 +7,8 @@
   border-left-style: solid;
   border-left-color: hsla(316, 77%, 37%, 0);
 
-  &:focus { // test focusing on section
-    border-left-color: hsla(316, 77%, 37%, 1);
+  &:focus { // focusing on section
+    border-left-color: hsla(316, 77%, 77%, 1);
   }
 
   iframe {
@@ -16,28 +16,17 @@
     margin: 0;
     padding: 0;
     position: relative;
-    height: calc(100% - 1.5rem);
+    height: calc(100% - 2rem);
     width: 100%;
     border: none;
-
-    &::before {
-      position: relative;
-      top: 0;
-      left: 1em;
-
-      &:focus { // test focusing on section
-        border-left-width: 4px;
-        border-left-style: solid;
-        border-left-color: dodgerblue;
-      }
-    }
   }
 
   .c-release {
-    margin:0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
     padding: 0.313rem;
-    height: 1.5rem;
-    width: 100%;
     @include regular;
     font-size: 0.6rem;
     color: $gray;

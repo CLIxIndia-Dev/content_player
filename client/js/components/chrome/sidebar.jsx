@@ -28,6 +28,7 @@ export class Sidebar extends React.Component{
           selected={this.props.pageId == item.id}
           sidebarOpen={this.props.sidebarOpen}
           selectPage={this.props.selectPage}
+          focusPage={this.props.focusPage}
         />
       );
     });
@@ -37,31 +38,31 @@ export class Sidebar extends React.Component{
     const tableOfContents = this.tableOfContents(this.props);
     let btnToggleClass = 'c-sidebar__toggle-button';
     let svgSpinClass = 'c-sidebar__svg';
-    let sidebarClass = 'c-sidebar ';
+    let sidebarClass = 'c-sidebar domhidden';
     let btnAriaPressed = 'false';
-    let btnHasPopup = 'true';
     let btnAriaExpanded = 'false';
 
     if(this.props.sidebarOpen){
       btnToggleClass = 'c-sidebar__toggle-button c-sidebar__toggle-button--open';
       svgSpinClass = 'c-sidebar__svg c-sidebar__svg--spin';
-      sidebarClass = 'c-sidebar c-sidebar--open ';
+      sidebarClass = 'c-sidebar c-sidebar--open';
       btnAriaPressed = 'true';
-      btnHasPopup = 'true';
       btnAriaExpanded = 'true';
     }
 
     return (
-      <section tabIndex='-1' role='complementary'>
+      <nav aria-labelledby='activityToggle'>
         <button
+          id='activityToggle'
           onClick={() => {this.props.toggleSidebar();}}
           className={btnToggleClass}
           aria-pressed={btnAriaPressed}
           aria-expanded={btnAriaExpanded}
+          aria-haspopup
           aria-controls='activityList'
         >
           <span>{this.props.localizedStrings.sidebar.activityList}</span>
-          <svg className={svgSpinClass} version='1.1' width='9.9' height='16' viewBox='0 0 9.9 16'
+          <svg className={svgSpinClass} aria-hidden version='1.1' width='9.9' height='16' viewBox='0 0 9.9 16'
             enableBackground='new 0 0 9.9 16' xmlSpace='preserve'>
             <g transform='translate(-218.000000, -90.000000)'>
               <g id='chevron-right' transform='translate(218.500000, 90.000000)'>
@@ -74,13 +75,11 @@ export class Sidebar extends React.Component{
         <div id='activityList' className={sidebarClass}>
           <div className='unit'>{this.props.tocMeta.gradeUnit}</div>
           <div className='subject'>{this.props.tocMeta.subjectLesson}</div>
-          <nav aria-label='Activity'>
-            <ul>
-              {tableOfContents}
-            </ul>
-          </nav>
+          <ul>
+            {tableOfContents}
+          </ul>
         </div>
-      </section>
+      </nav>
     );
   }
 }

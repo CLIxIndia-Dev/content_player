@@ -1,10 +1,11 @@
-"use strict";
+'use strict';
 
 import {Constants as ApplicationConstants} from '../actions/application';
 
 const initialState =  {
   sidebarOpen: true,
-  currentPage: null
+  currentPage: null,
+  pageFocus: null
 };
 
 export default (state = initialState, action) => {
@@ -20,6 +21,11 @@ export default (state = initialState, action) => {
       selectedPage.currentPage = action.pageId;
       selectedPage.currentPageName = action.pageName;
       return selectedPage;
+
+    case ApplicationConstants.FOCUS_PAGE:
+      var focusedPage = Object.assign({}, state);
+      focusedPage.pageFocus = true;
+      return focusedPage;
 
     default:
       return state;

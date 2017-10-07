@@ -17,7 +17,9 @@ const select = (state) => {
     contentName:      state.settings.contentName,
     tocMeta:          state.content.tocMeta,
     contentPath:      state.content.contentPath,
+    pageFocus:        state.application.pageFocus,
     locale:           lang
+
   };
 };
 
@@ -65,11 +67,23 @@ export class Page extends React.Component {
     window.addEventListener('message', (e) => this.onMessage(e), false);
   }
 
-  componentDidUpdate() {
-    // Check if the iframe has reloaded, and focus to top of wrapping section
-    setTimeout(() => {
-      this.section.focus();
-    }, 250);
+  componentWillUpdate(props) {
+    // Prepare the component to set focus to wrapper
+    // if pageFocus is true.
+
+    // This works better than using componentDidUpdate
+    // in this case, because this method grabs the state
+    // more quickly, rather than showing the state
+    // after clicking a BookItem twice to achieve
+    // the same effect
+    if(props.pageFocus) {
+      // Add a slight delay to make sure the element
+      // is in the DOM first before focusing
+      setTimeout(() => {
+        this.section.focus();
+      }, 250);
+      return;
+    }
   }
 
   addVideoEventListeners(iframeDocument) {
@@ -226,7 +240,7 @@ export class Page extends React.Component {
         </Helmet>
         {this.iframe(this.props)}
         <div className='c-release'>
-          {footerText}
+          <span>{footerText}</span>
         </div>
       </section>
     );
