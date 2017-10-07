@@ -26,10 +26,6 @@
     @include activity-link;
     outline: 0;
 
-    &:hover {
-      @include activity-hover;
-    }
-
     &:focus {
       @include activity-focus;
 
@@ -37,6 +33,10 @@
         opacity: 1;
         transform: translate3d(-0.5em, 0, 0);
       }
+    }
+
+    &:hover {
+      @include activity-hover;
     }
 
     &:active {

@@ -82,7 +82,8 @@ $radius: 0.3rem;
 
 @mixin activity-active {
   /* CLIx orange */
-  background-image: linear-gradient(90deg, #f54b32, #f37f2f 0px, #f65e27);
+  border-left-color: #fff;
+  background-image: linear-gradient(90deg, #f54b32, #f37f2f 13.75em, #f65e27);
 }
 
 @mixin activity-selected {
