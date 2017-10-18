@@ -1,13 +1,14 @@
-'use strict';
-
 import React                    from 'react';
-
+import { connect }              from 'react-redux';
 import Sidebar                  from '../chrome/sidebar';
 import * as ContentActions      from '../../actions/content';
 import * as ApplicationActions  from '../../actions/application';
-import { connect }              from 'react-redux';
 
 export class Index extends React.Component {
+
+  static propTypes = {
+    params: React.PropTypes.object
+  };
 
   componentWillMount(){
     this.props.loadContent(this.props.epubUrl);
@@ -23,11 +24,11 @@ export class Index extends React.Component {
 
   render(){
     return (
-      <div className='c-container'>
+      <div className="c-container">
         <Sidebar
           pageId={this.props.params.pageId}
         />
-        <div className='c-content'>
+        <div className="c-content">
           {this.props.children}
         </div>
       </div>
@@ -45,4 +46,4 @@ const select = (state) => {
   };
 };
 
-export default connect(select, {...ContentActions, ...ApplicationActions})(Index);
+export default connect(select, { ...ContentActions, ...ApplicationActions })(Index);

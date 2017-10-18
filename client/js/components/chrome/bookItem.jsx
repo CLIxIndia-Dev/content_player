@@ -1,8 +1,6 @@
-'use strict';
-
 import React from 'react';
 
-export default (props) => {
+export default function BookItem(props) {
 
   const openPage = (e) => {
     e.preventDefault();
@@ -20,12 +18,21 @@ export default (props) => {
   return (
     <li className={bookItemClass} >
       <a
-        href='#'
+        href="#"
         aria-current={ariaCurr}
         onClick={(e) => openPage(e)}
       >
         {props.content.navLabel}
       </a>
     </li>
-  );
+  )
+};
+
+
+BookItem.propTypes = {
+  content: React.PropTypes.object,
+  sidebarOpen: React.PropTypes.bool,
+  selected: React.PropTypes.bool,
+  selectPage: React.PropTypes.object,
+  focusPage: React.PropTypes.func
 };

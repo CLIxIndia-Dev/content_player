@@ -1,5 +1,3 @@
-'use strict';
-
 import _                     from 'lodash';
 import React                 from 'react';
 import { connect }           from 'react-redux';
@@ -7,7 +5,7 @@ import { Helmet }            from 'react-helmet';
 
 import * as ContentActions   from '../../actions/content';
 import * as AnalyticsActions from '../../actions/analytics';
-import assets                from '../../libs/assets';
+// import assets                from '../../libs/assets';
 import getAVSrc              from '../../utils/audio_video_src';
 
 const select = (state) => {
@@ -25,13 +23,20 @@ const select = (state) => {
 
 export class Page extends React.Component {
 
+  static propTypes = {
+    tocMeta: React.PropTypes.shape({
+      gradeUnit: React.PropTypes.string,
+      subjectLesson: React.PropTypes.string,
+    })
+  };
+
   scrollToAssessment(){
     var pubFrame = document.getElementsByTagName('iframe')[0];
     var epubBody = pubFrame.contentDocument.body;
-    if(!epubBody){ return; }
+    if (!epubBody) { return; }
 
     var quizIframe = pubFrame.contentDocument.getElementById('openassessments_container');
-    if(!quizIframe){ return; }
+    if (!quizIframe) { return; }
 
     var quizTop = quizIframe.getBoundingClientRect().top;
     epubBody.scrollTop += quizTop;
@@ -45,7 +50,7 @@ export class Page extends React.Component {
     // locales.  Although we ignore the available locales, we use that message's
     // source to target a message back down to the assessment-player.
     var data = message.data;
-    if(_.isString(message.data)){
+    if (_.isString(message.data)) {
       data = JSON.parse(message.data);
     }
     const type = data.open_assessments_msg;
@@ -64,7 +69,7 @@ export class Page extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('message', (e) => this.onMessage(e), false);
+    window.addEventListener('message', e => this.onMessage(e), false);
   }
 
   componentWillUpdate(props) {
@@ -76,13 +81,12 @@ export class Page extends React.Component {
     // more quickly, rather than showing the state
     // after clicking a BookItem twice to achieve
     // the same effect
-    if(props.pageFocus) {
+    if (props.pageFocus) {
       // Add a slight delay to make sure the element
       // is in the DOM first before focusing
       setTimeout(() => {
         this.section.focus();
       }, 250);
-      return;
     }
   }
 
@@ -98,7 +102,7 @@ export class Page extends React.Component {
       }, false);
 
       element.addEventListener('pause', (e) => {
-        if(!e.target.ended) {
+        if (!e.target.ended) {
           this.props.videoPause(
             e.target.id,
             getAVSrc(e.target),
@@ -133,7 +137,7 @@ export class Page extends React.Component {
       }, false);
 
       element.addEventListener('pause', (e) => {
-        if(!e.target.ended) {
+        if (!e.target.ended) {
           this.props.audioPause(
             e.target.id,
             getAVSrc(e.target),
@@ -187,10 +191,10 @@ export class Page extends React.Component {
     let transcriptButtons = iframeDocument.querySelectorAll('.trans-form input');
     _.each(transcriptButtons, (element) => {
       let label = element.parentElement.querySelector('label');
-      let labelName = label ? label.textContent : '';
+      const labelName = label ? label.textContent : '';
 
       element.addEventListener('change', (e) => {
-        if(e.target.checked) {
+        if (e.target.checked) {
           this.props.openTranscript(labelName);
         } else {
           this.props.closeTranscript(labelName);
@@ -219,27 +223,30 @@ export class Page extends React.Component {
       props.tableOfContents,
       (item) => item.id == props.params.pageId
     );
-    if(!current) { return; }
+    if (!current) { return; }
 
-    const iframeTitle = this.props.tocMeta.gradeUnit + ' ' + this.props.tocMeta.subjectLesson;
-    return <iframe
-      onLoad={() => this.addIframeEventListeners()}
-      ref={(iframe) => this.contentIframe = iframe }
-      src={`${props.contentPath}/${current.content}`}
-      title={iframeTitle}
-      allowFullScreen='true' />;
+    const iframeTitle = `${this.props.tocMeta.gradeUnit} ${this.props.tocMeta.subjectLesson}`;
+    return (
+      <iframe
+        onLoad={() => this.addIframeEventListeners()}
+        ref={iframe => this.contentIframe = iframe}
+        src={`${props.contentPath}/${current.content}`}
+        title={iframeTitle}
+        allowFullScreen="true"
+      />
+    );
   }
 
   render() {
     var lastModified = this.props.tocMeta.lastModified;
     var footerText = lastModified ? `CLIx release date: ${lastModified}` : undefined;
     return (
-      <section className='c-page' tabIndex='-1' ref={(section) => this.section = section}>
+      <section className="c-page" tabIndex="-1" ref={section => this.section = section}>
         <Helmet>
           <html lang={this.props.locale} />
         </Helmet>
         {this.iframe(this.props)}
-        <div className='c-release'>
+        <div className="c-release">
           <span>{footerText}</span>
         </div>
       </section>

@@ -1,5 +1,3 @@
-"use strict";
-
 import React        from 'react';
 import ReactDOM     from 'react-dom';
 import TestUtils    from 'react/lib/ReactTestUtils';
@@ -14,8 +12,9 @@ const FakeSidebar = React.createClass({
 });
 
 describe('index', function() {
-  var result, subject;
-  var props;
+  let result;
+  let subject;
+  let props;
 
   beforeEach(()=>{
     SidebarRewire.__Rewire__('Sidebar', FakeSidebar);
@@ -35,7 +34,7 @@ describe('index', function() {
   it('renders the index', function() {
     expect(ReactDOM.findDOMNode(result)).toBeDefined();
   });
-  it("renders children", () => {
+  it('renders children', () => {
     expect(subject.innerHTML).toContain('Howdy');
   });
 });
