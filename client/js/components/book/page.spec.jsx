@@ -1,30 +1,27 @@
-"use strict";
-
 import React        from 'react';
-import ReactDOM     from 'react-dom';
-import TestUtils    from 'react/lib/ReactTestUtils';
+import TestUtils    from 'react-dom/test-utils';
 import { Page }  from './page';
 
-var page;
-var props;
+let page;
+let props;
 describe('page', () => {
   beforeEach(() => {
     page = TestUtils.renderIntoDocument(<Page tocMeta={{}} />);
     props = {
-      tableOfContents: [{id:1}, {id:2}],
-      contentPath:"FakeUrl",
-      params:{pageId:1},
+      tableOfContents: [{ id:1 }, { id:2 }],
+      contentPath:'FakeUrl',
+      params:{ pageId:1 },
     };
   });
 
   it('renders iframe of selected item', () => {
-    var result = page.iframe(props);
+    const result = page.iframe(props);
     expect(result.type).toEqual('iframe');
   });
 
   it('returns undefined if no item is selected', () => {
     props.params.pageId = 3;
-    var result = page.iframe(props);
-    expect(result).toBeUndefined();
+    const result = page.iframe(props);
+    expect(result.type).toEqual('div');
   });
 });

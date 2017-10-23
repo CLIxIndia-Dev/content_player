@@ -1,18 +1,19 @@
-import React          from 'react';
-import { connect }      from 'react-redux';
-import BookItem       from './bookItem.jsx';
+import _                        from 'lodash';
+import React                    from 'react';
+import { connect }              from 'react-redux';
+import BookItem                 from './bookItem.jsx';
 import * as ApplicationActions  from '../../actions/application';
 import { localizeStrings }      from '../../selectors/locale';
 
-const select = (state) => {
-  return {
+const select = state => (
+  {
     tableOfContents: state.content.tableOfContents,
     title: state.content.title,
     tocMeta: state.content.tocMeta,
     sidebarOpen: state.application.sidebarOpen,
     localizedStrings: localizeStrings(state)
-  };
-};
+  }
+);
 
 export class Sidebar extends React.Component {
 
@@ -23,26 +24,26 @@ export class Sidebar extends React.Component {
       gradeUnit: React.PropTypes.string,
       subjectLesson: React.PropTypes.string,
     }),
-    selectPage: React.PropTypes.object,
-    focusPage: React.PropTypes.func
-
+    selectPage: React.PropTypes.func,
+    focusPage: React.PropTypes.func,
+    toggleSidebar: React.PropTypes.func,
+    pageId: React.PropTypes.string,
+    sidebarOpen: React.PropTypes.bool
   };
 
 
   tableOfContents(props) {
-    if(!props.tableOfContents){return;}
-    return _.map(props.tableOfContents, (item)=>{
-      return (
-        <BookItem
-          key={`bookItem_${item.id}`}
-          content={item}
-          selected={this.props.pageId == item.id}
-          sidebarOpen={this.props.sidebarOpen}
-          selectPage={this.props.selectPage}
-          focusPage={this.props.focusPage}
-        />
-      );
-    });
+    if (!props.tableOfContents) { return <div />; }
+    return _.map(props.tableOfContents, item => (
+      <BookItem
+        key={`bookItem_${item.id}`}
+        content={item}
+        selected={this.props.pageId === item.id}
+        sidebarOpen={this.props.sidebarOpen}
+        selectPage={this.props.selectPage}
+        focusPage={this.props.focusPage}
+      />
+    ));
   }
 
   render() {
@@ -55,7 +56,7 @@ export class Sidebar extends React.Component {
     let subject = '';
     let tableOfContents = '';
 
-    if(this.props.sidebarOpen){
+    if (this.props.sidebarOpen) {
       btnToggleClass = 'c-sidebar__toggle-button c-sidebar__toggle-button--open';
       svgSpinClass = 'c-sidebar__svg c-sidebar__svg--spin';
       btnAriaPressed = 'true';
@@ -70,7 +71,7 @@ export class Sidebar extends React.Component {
       <nav aria-labelledby="activityToggle">
         <button
           id="activityToggle"
-          onClick={() => {this.props.toggleSidebar();}}
+          onClick={() => { this.props.toggleSidebar(); }}
           className={btnToggleClass}
           aria-pressed={btnAriaPressed}
           aria-expanded={btnAriaExpanded}

@@ -12,27 +12,27 @@ export default function BookItem(props) {
   let ariaCurr;
   if (props.sidebarOpen && props.selected) {
     bookItemClass = 'c-book-item c-book-item--selected';
-    ariaCurr = 'page';
+    ariaCurr = 'true';
   }
 
   return (
     <li className={bookItemClass} >
       <a
-        href="#"
-        aria-current={ariaCurr}
-        onClick={(e) => openPage(e)}
+        href={`#${props.content.navLabel}}`}
+        aria-current={ariaCurr} // eslint-disable-line
+        onClick={e => openPage(e)}
       >
         {props.content.navLabel}
       </a>
     </li>
-  )
-};
+  );
+}
 
 
 BookItem.propTypes = {
   content: React.PropTypes.object,
   sidebarOpen: React.PropTypes.bool,
   selected: React.PropTypes.bool,
-  selectPage: React.PropTypes.object,
+  selectPage: React.PropTypes.func,
   focusPage: React.PropTypes.func
 };
