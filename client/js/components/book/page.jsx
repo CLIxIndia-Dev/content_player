@@ -9,7 +9,7 @@ import * as AnalyticsActions from '../../actions/analytics';
 import getAVSrc              from '../../utils/audio_video_src';
 
 const select = (state) => {
-  let lang = state.content.tocMeta.language;
+  const lang = state.content.tocMeta.language;
   return {
     tableOfContents:  state.content.tableOfContents,
     contentName:      state.settings.contentName,
@@ -27,18 +27,33 @@ export class Page extends React.Component {
     tocMeta: React.PropTypes.shape({
       gradeUnit: React.PropTypes.string,
       subjectLesson: React.PropTypes.string,
-    })
+      lastModified: React.PropTypes.string,
+    }),
+    locale: React.PropTypes.string,
+    videoPlay: React.PropTypes.func,
+    videoPause: React.PropTypes.func,
+    videoSeeked: React.PropTypes.func,
+    videoEnded: React.PropTypes.func,
+    audioPlay: React.PropTypes.func,
+    audioPause: React.PropTypes.func,
+    audioSeeked: React.PropTypes.func,
+    audioEnded: React.PropTypes.func,
+    imageClick: React.PropTypes.func,
+    linkClick: React.PropTypes.func,
+    buttonClick: React.PropTypes.func,
+    openTranscript: React.PropTypes.func,
+    closeTranscript: React.PropTypes.func
   };
 
-  scrollToAssessment(){
-    var pubFrame = document.getElementsByTagName('iframe')[0];
-    var epubBody = pubFrame.contentDocument.body;
+  scrollToAssessment() {
+    const pubFrame = document.getElementsByTagName('iframe')[0];
+    const epubBody = pubFrame.contentDocument.body;
     if (!epubBody) { return; }
 
-    var quizIframe = pubFrame.contentDocument.getElementById('openassessments_container');
+    const quizIframe = pubFrame.contentDocument.getElementById('openassessments_container');
     if (!quizIframe) { return; }
 
-    var quizTop = quizIframe.getBoundingClientRect().top;
+    const quizTop = quizIframe.getBoundingClientRect().top;
     epubBody.scrollTop += quizTop;
   }
 
@@ -49,13 +64,13 @@ export class Page extends React.Component {
     // the assessment-player sends a message up to us to indicate its available
     // locales.  Although we ignore the available locales, we use that message's
     // source to target a message back down to the assessment-player.
-    var data = message.data;
+    let data = message.data;
     if (_.isString(message.data)) {
       data = JSON.parse(message.data);
     }
     const type = data.open_assessments_msg;
 
-    switch(type) {
+    switch (type) {
       case 'open_assessments_available_locales':
         message.source.postMessage({
           open_assessments_msg: 'open_assessments_set_locale',
@@ -64,6 +79,8 @@ export class Page extends React.Component {
         break;
       case 'scrollToTop':
         this.scrollToAssessment();
+        break;
+      default:
         break;
     }
   }
@@ -91,7 +108,7 @@ export class Page extends React.Component {
   }
 
   addVideoEventListeners(iframeDocument) {
-    let videoElements = iframeDocument.querySelectorAll('video');
+    const videoElements = iframeDocument.querySelectorAll('video');
     _.each(videoElements, (element) => {
       element.addEventListener('play', (e) => {
         this.props.videoPlay(
@@ -126,7 +143,7 @@ export class Page extends React.Component {
   }
 
   addAudioEventListeners(iframeDocument) {
-    let audioElements = iframeDocument.querySelectorAll('audio');
+    const audioElements = iframeDocument.querySelectorAll('audio');
     _.each(audioElements, (element) => {
       element.addEventListener('play', (e) => {
         this.props.audioPlay(
@@ -161,7 +178,7 @@ export class Page extends React.Component {
   }
 
   addImageEventListeners(iframeDocument) {
-    let imgElements = iframeDocument.querySelectorAll('img.zoom-but-sm, img.zoom-but-md');
+    const imgElements = iframeDocument.querySelectorAll('img.zoom-but-sm, img.zoom-but-md');
     _.each(imgElements, (element) => {
       element.addEventListener('click', (e) => {
         this.props.imageClick(e.target.id, e.target.src);
@@ -170,7 +187,7 @@ export class Page extends React.Component {
   }
 
   addLinkEventListeners(iframeDocument) {
-    let linkElements = iframeDocument.querySelectorAll('a');
+    const linkElements = iframeDocument.querySelectorAll('a');
     _.each(linkElements, (element) => {
       element.addEventListener('click', (e) => {
         this.props.linkClick(e.target.id, e.target.src);
@@ -179,7 +196,7 @@ export class Page extends React.Component {
   }
 
   addButtonEventListeners(iframeDocument) {
-    let buttonElements = iframeDocument.querySelectorAll('figure button');
+    const buttonElements = iframeDocument.querySelectorAll('figure button');
     _.each(buttonElements, (element) => {
       element.addEventListener('click', (e) => {
         this.props.buttonClick(e.target.id);
@@ -188,9 +205,9 @@ export class Page extends React.Component {
   }
 
   addTranscriptButtonEventListeners(iframeDocument) {
-    let transcriptButtons = iframeDocument.querySelectorAll('.trans-form input');
+    const transcriptButtons = iframeDocument.querySelectorAll('.trans-form input');
     _.each(transcriptButtons, (element) => {
-      let label = element.parentElement.querySelector('label');
+      const label = element.parentElement.querySelector('label');
       const labelName = label ? label.textContent : '';
 
       element.addEventListener('change', (e) => {
@@ -207,7 +224,7 @@ export class Page extends React.Component {
    * images inside the iframe.
    */
   addIframeEventListeners() {
-    let iframeDocument = this.contentIframe.contentDocument ||
+    const iframeDocument = this.contentIframe.contentDocument ||
         this.contentIframe.contentWindow.document;
 
     this.addVideoEventListeners(iframeDocument);
@@ -219,17 +236,17 @@ export class Page extends React.Component {
   }
 
   iframe(props) {
-    var current = _.find(
+    const current = _.find(
       props.tableOfContents,
-      (item) => item.id == props.params.pageId
+      item => item.id === props.params.pageId
     );
-    if (!current) { return; }
+    if (!current) { return <div />; }
 
     const iframeTitle = `${this.props.tocMeta.gradeUnit} ${this.props.tocMeta.subjectLesson}`;
     return (
       <iframe
         onLoad={() => this.addIframeEventListeners()}
-        ref={iframe => this.contentIframe = iframe}
+        ref={(iframe) => { this.contentIframe = iframe; }}
         src={`${props.contentPath}/${current.content}`}
         title={iframeTitle}
         allowFullScreen="true"
@@ -238,10 +255,10 @@ export class Page extends React.Component {
   }
 
   render() {
-    var lastModified = this.props.tocMeta.lastModified;
-    var footerText = lastModified ? `CLIx release date: ${lastModified}` : undefined;
+    const lastModified = this.props.tocMeta.lastModified;
+    const footerText = lastModified ? `CLIx release date: ${lastModified}` : undefined;
     return (
-      <section className="c-page" tabIndex="-1" ref={section => this.section = section}>
+      <section className="c-page" tabIndex="-1" ref={(section) => { this.section = section; }}>
         <Helmet>
           <html lang={this.props.locale} />
         </Helmet>
@@ -254,4 +271,4 @@ export class Page extends React.Component {
   }
 }
 
-export default connect(select, {...ContentActions, ...AnalyticsActions})(Page);
+export default connect(select, { ...ContentActions, ...AnalyticsActions })(Page);
