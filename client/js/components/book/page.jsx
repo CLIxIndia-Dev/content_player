@@ -45,18 +45,27 @@ export class Page extends React.Component {
     closeTranscript: React.PropTypes.func
   };
 
-  scrollToAssessment() {
-    const pubFrame = document.getElementsByTagName('iframe')[0];
-    const epubBody = pubFrame.contentDocument.body;
-    if (!epubBody) { return; }
-
-    const quizIframe = pubFrame.contentDocument.getElementById('openassessments_container');
-    if (!quizIframe) { return; }
-
-    const quizTop = quizIframe.getBoundingClientRect().top;
-    epubBody.scrollTop += quizTop;
+  componentDidMount() {
+    window.addEventListener('message', e => this.onMessage(e), false);
   }
 
+  componentWillUpdate(props) {
+    // Prepare the component to set focus to wrapper
+    // if pageFocus is true.
+
+    // This works better than using componentDidUpdate
+    // in this case, because this method grabs the state
+    // more quickly, rather than showing the state
+    // after clicking a BookItem twice to achieve
+    // the same effect
+    if (props.pageFocus) {
+      // Add a slight delay to make sure the element
+      // is in the DOM first before focusing
+      setTimeout(() => {
+        this.section.focus();
+      }, 250);
+    }
+  }
 
   onMessage(message) {
     // Inconveniently, we don't seem to be able to locate the
@@ -85,27 +94,18 @@ export class Page extends React.Component {
     }
   }
 
-  componentDidMount() {
-    window.addEventListener('message', e => this.onMessage(e), false);
+  scrollToAssessment() { // eslint-disable-line class-methods-use-this
+    const pubFrame = document.getElementsByTagName('iframe')[0];
+    const epubBody = pubFrame.contentDocument.body;
+    if (!epubBody) { return; }
+
+    const quizIframe = pubFrame.contentDocument.getElementById('openassessments_container');
+    if (!quizIframe) { return; }
+
+    const quizTop = quizIframe.getBoundingClientRect().top;
+    epubBody.scrollTop += quizTop;
   }
 
-  componentWillUpdate(props) {
-    // Prepare the component to set focus to wrapper
-    // if pageFocus is true.
-
-    // This works better than using componentDidUpdate
-    // in this case, because this method grabs the state
-    // more quickly, rather than showing the state
-    // after clicking a BookItem twice to achieve
-    // the same effect
-    if (props.pageFocus) {
-      // Add a slight delay to make sure the element
-      // is in the DOM first before focusing
-      setTimeout(() => {
-        this.section.focus();
-      }, 250);
-    }
-  }
 
   addVideoEventListeners(iframeDocument) {
     const videoElements = iframeDocument.querySelectorAll('video');
