@@ -306,45 +306,45 @@ export class Page extends React.Component {
       if (currentPageIndex > -1) {
         // show Previous button
         previousButton = (currentPageIndex === 0)
-        ? (
-          <button
-            className="c-btn-footer c-btn-footer--prev-page"
-            disabled
-          >
-            { svg }
-            {this.props.localizedStrings.footer.previous}
-          </button>
-        ) :
-        (
-          <button
-            className="c-btn-footer c-btn-footer--prev-page"
-            onClick={() => this.props.selectPage(tableOfContents[currentPageIndex - 1].id)}
-          >
-            { svg }
-            {this.props.localizedStrings.footer.previous}
-          </button>
-        );
+          ? (
+            <button
+              className="c-btn-footer c-btn-footer--prev-page"
+              disabled
+            >
+              { svg }
+              {this.props.localizedStrings.footer.previous}
+            </button>
+          ) :
+          (
+            <button
+              className="c-btn-footer c-btn-footer--prev-page"
+              onClick={() => this.props.selectPage(tableOfContents[currentPageIndex - 1].id)}
+            >
+              { svg }
+              {this.props.localizedStrings.footer.previous}
+            </button>
+          );
 
         // show Next button
         nextButton = (currentPageIndex === tableOfContents.length - 1)
-        ? (
-          <button
-            className="c-btn-footer c-btn-footer--next-page"
-            disabled
-          >
-            {this.props.localizedStrings.footer.next}
-            { svg }
-          </button>
-        ) :
-        (
-          <button
-            className="c-btn-footer c-btn-footer--next-page"
-            onClick={() => this.props.selectPage(tableOfContents[currentPageIndex + 1].id)}
-          >
-            {this.props.localizedStrings.footer.next}
-            { svg }
-          </button>
-        );
+          ? (
+            <button
+              className="c-btn-footer c-btn-footer--next-page"
+              disabled
+            >
+              {this.props.localizedStrings.footer.next}
+              { svg }
+            </button>
+          ) :
+          (
+            <button
+              className="c-btn-footer c-btn-footer--next-page"
+              onClick={() => this.props.selectPage(tableOfContents[currentPageIndex + 1].id)}
+            >
+              {this.props.localizedStrings.footer.next}
+              { svg }
+            </button>
+          );
       }
     }
 
@@ -377,6 +377,7 @@ export class Page extends React.Component {
             <button
               onClick={this.toggleDrawer}
               className="c-drawer-btn-close"
+              aria-label="close drawer"
             >
               X
             </button>

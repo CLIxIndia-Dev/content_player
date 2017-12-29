@@ -56,7 +56,7 @@ export class Sidebar extends React.Component {
     let unit = '';
     let subject = '';
     let tableOfContents = '';
-    const lastModified = this.props.tocMeta.lastModified;
+    const { lastModified } = this.props.tocMeta;
     const footerText = lastModified ? `CLIx Release Date: ${lastModified}` : undefined;
 
     if (this.props.sidebarOpen) {
