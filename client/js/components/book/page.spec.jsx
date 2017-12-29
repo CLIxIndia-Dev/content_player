@@ -47,15 +47,24 @@ describe('page', () => {
     };
 
     page = TestUtils.renderIntoDocument(<Page {...pageProps} />);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'page-nav-button').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-btn-footer--next-page').length).toEqual(1);
+    expect(TestUtils.findRenderedDOMComponentWithClass(page, 'c-btn-footer--next-page').disabled).toEqual(false);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-btn-footer--prev-page').length).toEqual(1);
+    expect(TestUtils.findRenderedDOMComponentWithClass(page, 'c-btn-footer--prev-page').disabled).toEqual(true);
 
     pageProps.params.pageId = '2';
     page = TestUtils.renderIntoDocument(<Page {...pageProps} />);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'page-nav-button').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-btn-footer--next-page').length).toEqual(1);
+    expect(TestUtils.findRenderedDOMComponentWithClass(page, 'c-btn-footer--next-page').disabled).toEqual(false);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-btn-footer--prev-page').length).toEqual(1);
+    expect(TestUtils.findRenderedDOMComponentWithClass(page, 'c-btn-footer--prev-page').disabled).toEqual(false);
 
     pageProps.params.pageId = '3';
     page = TestUtils.renderIntoDocument(<Page {...pageProps} />);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'page-nav-button').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-btn-footer--next-page').length).toEqual(1);
+    expect(TestUtils.findRenderedDOMComponentWithClass(page, 'c-btn-footer--next-page').disabled).toEqual(true);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-btn-footer--prev-page').length).toEqual(1);
+    expect(TestUtils.findRenderedDOMComponentWithClass(page, 'c-btn-footer--prev-page').disabled).toEqual(false);
   });
 
   it('renders bibliography button when appropriate', () => {
@@ -82,7 +91,8 @@ describe('page', () => {
     );
 
     page = TestUtils.renderIntoDocument(wrappedPage);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'bibliography-btn').length).toEqual(0);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-btn-footer--bibliography').length).toEqual(0);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-drawer-btn-close').length).toEqual(0);
     expect(TestUtils.scryRenderedComponentsWithType(page, Drawer).length).toEqual(0);
 
     pageProps.bibliography = {
@@ -96,8 +106,9 @@ describe('page', () => {
     );
 
     page = TestUtils.renderIntoDocument(wrappedPage);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'bibliography-btn').length).toEqual(1);
-    const drawerBtn = TestUtils.findRenderedDOMComponentWithClass(page, 'bibliography-btn');
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-btn-footer--bibliography').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-drawer-btn-close').length).toEqual(1);
+    const drawerBtn = TestUtils.findRenderedDOMComponentWithClass(page, 'c-btn-footer--bibliography');
 
     expect(TestUtils.scryRenderedComponentsWithType(page, Drawer).length).toEqual(1);
     let drawer = TestUtils.findRenderedComponentWithType(page, Drawer);
@@ -105,6 +116,8 @@ describe('page', () => {
 
     TestUtils.Simulate.click(drawerBtn);
 
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(page, 'c-drawer-btn-close').length).toEqual(1);
+    expect(TestUtils.scryRenderedComponentsWithType(page, Drawer).length).toEqual(1);
     drawer = TestUtils.findRenderedComponentWithType(page, Drawer);
     expect(drawer.props.open).toEqual(true);
   });

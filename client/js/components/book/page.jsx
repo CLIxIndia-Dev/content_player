@@ -349,44 +349,50 @@ export class Page extends React.Component {
     }
 
     let bibliography;
+    let drawer;
 
     if (this.props.bibliography) {
       bibliography = (
         <button
           onClick={this.toggleDrawer}
           className="c-btn-footer c-btn-footer--bibliography"
+          aria-pressed={this.state.drawerOpen}
+          aria-expanded={this.state.drawerOpen}
+          aria-haspopup
+          aria-controls="citationsDrawer"
         >
           {this.props.localizedStrings.footer.bibliography}
         </button>
       );
-    }
 
-    let drawer;
-
-    if (this.props.bibliography) {
       drawer = (
-        <FocusTrap
-          active={this.state.activeTrap}
+        <div
+          aria-hidden={!this.state.drawerOpen}
+          id="citationsDrawer"
         >
-          <Drawer
-            docked={false}
-            width="75%"
-            openSecondary
-            open={this.state.drawerOpen}
+          <FocusTrap
+            active={this.state.activeTrap}
           >
-            <button
-              onClick={this.toggleDrawer}
-              className="c-drawer-btn-close"
-              aria-label="close drawer"
+            <Drawer
+              docked={false}
+              width="75%"
+              openSecondary
+              open={this.state.drawerOpen}
             >
-              X
-            </button>
-            <iframe
-              title="Citations"
-              src={`${this.props.contentPath}/${this.props.bibliography.content}`}
-            />
-          </Drawer>
-        </FocusTrap>
+              <button
+                onClick={this.toggleDrawer}
+                className="c-drawer-btn-close"
+                aria-label="close drawer"
+              >
+                X
+              </button>
+              <iframe
+                title="Citations"
+                src={`${this.props.contentPath}/${this.props.bibliography.content}`}
+              />
+            </Drawer>
+          </FocusTrap>
+        </div>
       );
     }
 
