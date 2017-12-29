@@ -28,6 +28,13 @@ const select = (state) => {
   };
 };
 
+const svg = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+    <path d="M14.83 16.42l9.17 9.17 9.17-9.17 2.83 2.83-12 12-12-12z" />
+  </svg>
+);
+
+
 export class Page extends React.Component {
 
   static propTypes = {
@@ -36,7 +43,6 @@ export class Page extends React.Component {
     tocMeta: React.PropTypes.shape({
       gradeUnit: React.PropTypes.string,
       subjectLesson: React.PropTypes.string,
-      lastModified: React.PropTypes.string,
     }),
     locale: React.PropTypes.string,
     videoPlay: React.PropTypes.func,
@@ -288,9 +294,6 @@ export class Page extends React.Component {
   }
 
   render() {
-    const lastModified = this.props.tocMeta.lastModified;
-    const footerText = lastModified ? `CLIx release date: ${lastModified}` : undefined;
-
     let previousButton;
     let nextButton;
     const { tableOfContents, params } = this.props;
@@ -300,69 +303,96 @@ export class Page extends React.Component {
         item => item.id === params.pageId
       );
 
-      if (currentPageIndex > -1 && currentPageIndex !== 0) {
+      if (currentPageIndex > -1) {
         // show Previous button
-        previousButton = (
-          <button
-            className="page-nav-button"
-            onClick={() => this.props.selectPage(tableOfContents[currentPageIndex - 1].id)}
-          >
-            {this.props.localizedStrings.footer.previous}
-          </button>
-        );
-      }
+        previousButton = (currentPageIndex === 0)
+          ? (
+            <button
+              className="c-btn-footer c-btn-footer--prev-page"
+              disabled
+            >
+              { svg }
+              {this.props.localizedStrings.footer.previous}
+            </button>
+          ) :
+          (
+            <button
+              className="c-btn-footer c-btn-footer--prev-page"
+              onClick={() => this.props.selectPage(tableOfContents[currentPageIndex - 1].id)}
+            >
+              { svg }
+              {this.props.localizedStrings.footer.previous}
+            </button>
+          );
 
-      if (currentPageIndex > -1 && currentPageIndex !== tableOfContents.length - 1) {
         // show Next button
-        nextButton = (
-          <button
-            className="page-nav-button"
-            onClick={() => this.props.selectPage(tableOfContents[currentPageIndex + 1].id)}
-          >
-            {this.props.localizedStrings.footer.next}
-          </button>
-        );
+        nextButton = (currentPageIndex === tableOfContents.length - 1)
+          ? (
+            <button
+              className="c-btn-footer c-btn-footer--next-page"
+              disabled
+            >
+              {this.props.localizedStrings.footer.next}
+              { svg }
+            </button>
+          ) :
+          (
+            <button
+              className="c-btn-footer c-btn-footer--next-page"
+              onClick={() => this.props.selectPage(tableOfContents[currentPageIndex + 1].id)}
+            >
+              {this.props.localizedStrings.footer.next}
+              { svg }
+            </button>
+          );
       }
     }
 
     let bibliography;
+    let drawer;
 
     if (this.props.bibliography) {
       bibliography = (
         <button
           onClick={this.toggleDrawer}
-          className="bibliography-btn"
+          className="c-btn-footer c-btn-footer--bibliography"
+          aria-pressed={this.state.drawerOpen}
+          aria-expanded={this.state.drawerOpen}
+          aria-haspopup
+          aria-controls="citationsDrawer"
         >
           {this.props.localizedStrings.footer.bibliography}
         </button>
       );
-    }
 
-    let drawer;
-
-    if (this.props.bibliography) {
       drawer = (
-        <FocusTrap
-          active={this.state.activeTrap}
+        <div
+          aria-hidden={!this.state.drawerOpen}
+          id="citationsDrawer"
         >
-          <Drawer
-            docked={false}
-            width="75%"
-            openSecondary
-            open={this.state.drawerOpen}
+          <FocusTrap
+            active={this.state.activeTrap}
           >
-            <button
-              onClick={this.toggleDrawer}
-              className="close-bibliography-btn"
+            <Drawer
+              docked={false}
+              width="75%"
+              openSecondary
+              open={this.state.drawerOpen}
             >
-              X
-            </button>
-            <iframe
-              title="Citations"
-              src={`${this.props.contentPath}/${this.props.bibliography.content}`}
-            />
-          </Drawer>
-        </FocusTrap>
+              <button
+                onClick={this.toggleDrawer}
+                className="c-drawer-btn-close"
+                aria-label="close drawer"
+              >
+                X
+              </button>
+              <iframe
+                title="Citations"
+                src={`${this.props.contentPath}/${this.props.bibliography.content}`}
+              />
+            </Drawer>
+          </FocusTrap>
+        </div>
       );
     }
 
@@ -372,12 +402,11 @@ export class Page extends React.Component {
           <html lang={this.props.locale} />
         </Helmet>
         {this.iframe(this.props)}
-        <div className="c-release">
+        <nav className="c-page-nav">
           {previousButton}
-          <span>{footerText}</span>
           {bibliography}
           {nextButton}
-        </div>
+        </nav>
         {drawer}
       </section>
     );
