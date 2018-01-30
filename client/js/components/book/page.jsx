@@ -250,6 +250,23 @@ export class Page extends React.Component {
         }
       }, false);
     });
+
+    // also support the new layout, with transcript button right of
+    //   a "select" button
+    const newTranscriptButtons = iframeDocument.querySelectorAll('.transcript-toggle');
+    _.each(newTranscriptButtons, (element) => {
+      const label = element.parentElement.querySelector('.audio-select');
+      const labelName = label ? label.getAttribute('href') : '';
+
+      element.addEventListener('click', () => {
+        if (element.hasAttribute('aria-expanded') &&
+          element.getAttribute('aria-expanded') === 'true') {
+          this.props.openTranscript(labelName);
+        } else {
+          this.props.closeTranscript(labelName);
+        }
+      }, false);
+    });
   }
 
   /* We need to listen to video/audio play and pause events and click events on
