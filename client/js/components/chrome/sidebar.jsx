@@ -70,6 +70,10 @@ export class Sidebar extends React.Component {
       tableOfContents = this.tableOfContents(this.props);
     }
 
+    const ariaLabel = btnAriaExpanded === 'true' ?
+      this.props.localizedStrings.sidebar.hideActivityList :
+      this.props.localizedStrings.sidebar.showActivityList;
+
     return (
       <nav aria-labelledby="activityToggle">
         <button
@@ -80,6 +84,7 @@ export class Sidebar extends React.Component {
           aria-expanded={btnAriaExpanded}
           aria-haspopup
           aria-controls="activityList"
+          aria-label={ariaLabel}
         >
           <span>{this.props.localizedStrings.sidebar.activityList}</span>
           <svg
