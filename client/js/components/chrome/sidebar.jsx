@@ -72,7 +72,7 @@ export class Sidebar extends React.Component {
 
     const ariaLabel = btnAriaExpanded === 'true' ?
       this.props.localizedStrings.sidebar.hideActivityList :
-      this.props.localizedStrings.sidebar.showActivityList
+      this.props.localizedStrings.sidebar.showActivityList;
 
     return (
       <nav aria-labelledby="activityToggle">
