@@ -1,9 +1,7 @@
 export default {
   en: {
     sidebar: {
-      activityList: 'Activity List',
-      hideActivityList: 'Hide activity list',
-      showActivityList: 'Show activity list'
+      activityList: 'Activity List'
     },
     footer: {
       next: 'Next activity', // Next page button in the footer
