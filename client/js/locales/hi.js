@@ -1,9 +1,7 @@
 export default {
   hi: {
     sidebar:{
-      activityList: 'गतिविधीयों की सूची', // Sidebar title
-      hideActivityList: 'गतिविधि सूची छुपाएं', // action to hide sidebar
-      showActivityList: 'गतिविधि सूची दिखाएं' // action to show sidebar
+      activityList: 'गतिविधीयों की सूची' // Sidebar title
     },
     footer: {
       next: 'अगली गतिविधि', // Next page button in the footer
