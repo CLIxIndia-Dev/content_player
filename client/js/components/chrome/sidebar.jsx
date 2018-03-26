@@ -56,7 +56,7 @@ export class Sidebar extends React.Component {
     let unit = '';
     let subject = '';
     let tableOfContents = '';
-    let title = 'Click to open the activity list';
+    let title = this.props.localizedStrings.sidebar.openListTitle;
     const { lastModified } = this.props.tocMeta;
     const footerText = lastModified ? `CLIx Release Date: ${lastModified}` : undefined;
 
@@ -69,7 +69,7 @@ export class Sidebar extends React.Component {
       unit = this.props.tocMeta.gradeUnit;
       subject = this.props.tocMeta.subjectLesson;
       tableOfContents = this.tableOfContents(this.props);
-      title = 'Click to close the activity list';
+      title = this.props.localizedStrings.sidebar.closeListTitle;
     }
 
     return (

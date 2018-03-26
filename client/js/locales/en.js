@@ -1,7 +1,9 @@
 export default {
   en: {
     sidebar: {
-      activityList: 'Activity List'
+      activityList: 'Activity List',
+      openListTitle: 'Click to open the activity list',
+      closeListTitle: ''
     },
     footer: {
       next: 'Next activity', // Next page button in the footer
