@@ -82,8 +82,15 @@ export class Sidebar extends React.Component {
           aria-expanded={btnAriaExpanded}
           aria-haspopup
           aria-controls="activityList"
-          title={title}
+          aria-describedby="activityTitle"
         >
+          <span
+            id="activityTitle"
+            className="tooltip"
+            role="tooltip"
+          >
+            {title}
+          </span>
           <span>{this.props.localizedStrings.sidebar.activityList}</span>
           <svg
             className={svgSpinClass}
