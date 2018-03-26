@@ -21,21 +21,52 @@
   @include activity-button-toggle;
   cursor: pointer;
 
+  .tooltip {
+    position: absolute;
+    left: 21em;
+    width: 20em;
+    top: 0;
+    padding-top: 0.75em;
+    padding-right: 1em;
+    padding-bottom: 0.563em;
+    padding-left: 0.5em;
+    @include activity-button-toggle;
+    background: $light-gray;
+    color: black;
+    box-shadow: 1px 1px 7px;
+    text-shadow: none;
+    border-bottom: none;
+    text-transform: initial;
+  }
+
+  [role="tooltip"] {
+    display: none;
+  }
+
   &[aria-pressed='true'] {
     @include activity-button-toggle-pressed;
   }
 
   &:hover {
     @include activity-button-toggle-hover;
+
+    [role="tooltip"] {
+      display: block;
+    }
   }
 
   &:focus {
     @include activity-button-toggle-focus;
+
+    [role="tooltip"] {
+      display: block;
+    }
   }
 
   &:active {
     @include activity-button-toggle-active;
   }
+
 }
 
 .c-sidebar__toggle-button--open {
@@ -124,4 +155,3 @@
   letter-spacing: 0.95px;
   text-transform: uppercase;
 }
-

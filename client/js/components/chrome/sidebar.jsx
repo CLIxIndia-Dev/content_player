@@ -56,6 +56,7 @@ export class Sidebar extends React.Component {
     let unit = '';
     let subject = '';
     let tableOfContents = '';
+    let title = this.props.localizedStrings.sidebar.openListTitle;
     const { lastModified } = this.props.tocMeta;
     const footerText = lastModified ? `CLIx Release Date: ${lastModified}` : undefined;
 
@@ -68,6 +69,7 @@ export class Sidebar extends React.Component {
       unit = this.props.tocMeta.gradeUnit;
       subject = this.props.tocMeta.subjectLesson;
       tableOfContents = this.tableOfContents(this.props);
+      title = this.props.localizedStrings.sidebar.closeListTitle;
     }
 
     return (
@@ -80,7 +82,15 @@ export class Sidebar extends React.Component {
           aria-expanded={btnAriaExpanded}
           aria-haspopup
           aria-controls="activityList"
+          aria-describedby="activityTitle"
         >
+          <span
+            id="activityTitle"
+            className="tooltip"
+            role="tooltip"
+          >
+            {title}
+          </span>
           <span>{this.props.localizedStrings.sidebar.activityList}</span>
           <svg
             className={svgSpinClass}
