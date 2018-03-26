@@ -31,6 +31,12 @@
     padding-bottom: 0.563em;
     padding-left: 0.5em;
     @include activity-button-toggle;
+    background: $light-gray;
+    color: black;
+    box-shadow: 1px 1px 7px;
+    text-shadow: none;
+    border-bottom: none;
+    text-transform: initial;
   }
 
   [role="tooltip"] {
