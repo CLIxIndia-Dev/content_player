@@ -253,7 +253,7 @@ In order to get the ePub metadata to appear correctly in the sidebar:
 You need to include two `dc:title` tas in the `OEBPS/content.opf` `metadata` section, like:
 
 ```
-<dc:title id="subj-lesson">English - Lesson 4</dc:title>
+<dc:title id="subj-lesson">English - Lesson 3</dc:title>
 <dc:title id="grd-unit">Class 9 - Unit EB</dc:title>
 ```
 
