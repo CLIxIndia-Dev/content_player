@@ -1,6 +1,6 @@
 # Content Player
 -----------------------
-Basic client only epub reader
+Basic client only epub2 reader
 
 
 # Getting Started:
@@ -243,6 +243,19 @@ To make sure that the correct language is applied to the content player UI and c
 ```
 
 Supported language codes are `en`, `hi`, and `te`.
+
+# Title Metadata in Sidebar
+---------------------------
+In order to get the ePub metadata to appear correctly in the sidebar:
+
+![Sidebar with metadata](https://raw.githubusercontent.com/wiki/CLIxIndia-Dev/content_player/imgs/epub-metadata-sidebar.png)
+
+You need to include two `dc:title` tas in the `OEBPS/content.opf` `metadata` section, like:
+
+```
+<dc:title id="subj-lesson">English - Lesson 4</dc:title>
+<dc:title id="grd-unit">Class 9 - Unit EB</dc:title>
+```
 
 # Citation Pages
 -----------------------
