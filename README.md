@@ -259,7 +259,7 @@ You need to include two `dc:title` tas in the `OEBPS/content.opf` `metadata` sec
 
 # Citation Pages
 -----------------------
-For any ePub with a "Citation" page (i.e. `Text/Citation.html`), you can optionally flag it as a `bibliography`, which means the content player will show that page in a separate drawer, and leave it out of the side-nav on the left. A new button will appear in the footer to show the drawer.
+For any ePub with a "Citation" page (i.e. `Text/Citation.html`), you can optionally flag it as a `bibliography`, which means the content player will show that page in a separate drawer, and leave it out of the side-nav on the left. A new button will appear in the footer to show the drawer. See [this wiki page](https://github.com/CLIxIndia-Dev/content_player/wiki/Citations-page) for images and more details.
 
 To flag it as a `bibliography`, there are two changes you need to make.
 
