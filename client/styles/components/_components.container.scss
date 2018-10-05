@@ -22,8 +22,53 @@
   }
 }
 
+.c-btn {
+  padding: 0 1rem;
+  height: 2rem;
+  border-radius: $radius;
+  border-width: 0.1em;
+  border-style: solid;
+  @include regular;
+  font-size: 0.875em;
+  position: relative;
+  white-space: nowrap;
+
+  &[disabled] {
+    visibility: hidden;
+    @include transition(all 0s);
+    * {
+      @include transition(all 0s);
+    }
+  }
+}
+
 .c-btn--print {
+  z-index: 100;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 10px;
+  background: $btn-primary-background;
+  color: $btn-primary-text;
+  border-color: $btn-primary-border;
+  outline: 0;
+  // @include transition(all 0.1s ease);
+  
+
+  &:hover {
+    border-color: $btn-primary-border;
+    background: $btn-primary-border-hover;
+    color: $btn-primary-text-hover;
+  }
+
+  &:focus {
+    border-color: $btn-primary-border;
+    background: $btn-primary-border-hover;
+    color: $btn-primary-text-hover;
+  }
+
+  &:active {
+    border-color: darken($btn-primary-border, 10%);
+    background: darken($btn-primary-border, 10%);
+    color: $btn-primary-text-hover;
+  }
 }
