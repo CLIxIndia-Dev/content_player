@@ -26,7 +26,7 @@ export const loadContent = (epubUrl) => ({
   epubUrl
 });
 
-export const setPrintAction = (printFunc) => ({
+export const setPrintAction = printFunc => ({
   type: Constants.SET_PRINT_ACTION,
   printFunc
 });

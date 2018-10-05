@@ -7,7 +7,8 @@ import * as ApplicationActions  from '../../actions/application';
 export class Index extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.object
+    params: React.PropTypes.object,
+    printAction: React.PropTypes.func
   };
 
   componentWillMount(){
