@@ -66,7 +66,8 @@ export class Page extends React.Component {
     bibliography: React.PropTypes.shape({
       content: React.PropTypes.string
     }),
-    contentPath: React.PropTypes.string
+    contentPath: React.PropTypes.string,
+    setPrintAction: React.PropTypes.func
   };
 
   constructor(props) {
@@ -273,6 +274,8 @@ export class Page extends React.Component {
    * images inside the iframe.
    */
   addIframeEventListeners() {
+    this.props.setPrintAction(() => { this.contentIframe.contentWindow.print(); });
+
     const iframeDocument = this.contentIframe.contentDocument ||
         this.contentIframe.contentWindow.document;
 

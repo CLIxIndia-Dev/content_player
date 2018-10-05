@@ -5,7 +5,8 @@ import _                              from "lodash";
 import { Constants as ContentConstants } from "../actions/content";
 
 const initialState = {
-  tocMeta: {}
+  tocMeta: {},
+  printAction: () => {}
 };
 
 export default (state = initialState, action) => {
@@ -17,6 +18,10 @@ export default (state = initialState, action) => {
       nextState.contentPath = action.contentPath;
       nextState.tocMeta = action.tocMeta;
       nextState.bibliography = action.bibliography;
+      return nextState;
+
+    case ContentConstants.SET_PRINT_ACTION:
+      nextState.printAction = action.printFunc;
       return nextState;
 
     default:
