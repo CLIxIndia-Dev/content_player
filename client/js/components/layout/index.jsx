@@ -7,7 +7,8 @@ import * as ApplicationActions  from '../../actions/application';
 export class Index extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.object
+    params: React.PropTypes.object,
+    printAction: React.PropTypes.func
   };
 
   componentWillMount(){
@@ -28,6 +29,12 @@ export class Index extends React.Component {
         <Sidebar
           pageId={this.props.params.pageId}
         />
+        <button
+          className="c-btn c-btn--print"
+          onClick={this.props.printAction}
+        >
+          Print
+        </button>
         <div className="c-content">
           {this.props.children}
         </div>
@@ -43,6 +50,7 @@ const select = (state) => {
     epubUrl: state.settings.epubUrl,
     tableOfContents: state.content.tableOfContents,
     currentPage: state.application.currentPage,
+    printAction: state.content.printAction,
   };
 };
 

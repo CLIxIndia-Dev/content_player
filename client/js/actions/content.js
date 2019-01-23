@@ -4,6 +4,7 @@ import Network    from '../constants/network';
 // Local actions
 const actions = [
   "RESET",
+  'SET_PRINT_ACTION'
 ];
 
 // Actions that make an api request
@@ -23,4 +24,9 @@ export const loadContent = (epubUrl) => ({
   type: Constants.LOAD_CONTENT,
   epubMethod: Network.GET,
   epubUrl
+});
+
+export const setPrintAction = printFunc => ({
+  type: Constants.SET_PRINT_ACTION,
+  printFunc
 });

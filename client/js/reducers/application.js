@@ -1,7 +1,7 @@
 import {Constants as ApplicationConstants} from '../actions/application';
 
 const initialState =  {
-  sidebarOpen: true,
+  sidebarOpen: Math.max(document.documentElement.clientWidth, window.innerWidth || 0) > 400,
   currentPage: null,
   pageFocus: null
 };
@@ -19,6 +19,9 @@ export default (state = initialState, action) => {
       const selectedPage = Object.assign({}, state);
       selectedPage.currentPage = action.pageId;
       selectedPage.currentPageName = action.pageName;
+      if (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) <= 400) {
+        selectedPage.sidebarOpen = false;
+      }
       return selectedPage;
     }
 
